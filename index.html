@@ -337,7 +337,7 @@ ready.then(function(){return sleep(200)}).then(function(){
      var tg=claim.getBoundingClientRect();
      var s=Wf/W2, ty2=tg.top;
      html.classList.add('t-rest');
-     var ov=Math.max(10,vw*.012);return anim(cfly,[{transform:tr(cx2,cy2)+' scale(1)',easing:'cubic-bezier(.55,0,.3,1)'},{transform:tr(tg.left-ov,ty2)+' scale('+(s*1.03)+')',offset:.68,easing:'ease-in-out'},{transform:tr(tg.left+ov*.35,ty2)+' scale('+(s*.995)+')',offset:.86,easing:'ease-in-out'},{transform:tr(tg.left,ty2)+' scale('+s+')'}],{duration:1250});
+     var ov=Math.max(9,vw*.009);return anim(cfly,[{transform:tr(cx2,cy2)+' scale(1)',easing:'cubic-bezier(.5,0,.45,1)'},{transform:tr(tg.left,ty2+ov)+' scale('+s+')',offset:.7,easing:'cubic-bezier(.3,.6,.4,1)'},{transform:tr(tg.left,ty2-ov*.4)+' scale('+s+')',offset:.86,easing:'ease-in-out'},{transform:tr(tg.left,ty2)+' scale('+s+')'}],{duration:1250});
    }).then(function(){
      claim.classList.add('instant','drawn');html.classList.add('t-claim');
      document.removeEventListener('touchmove',noMove);skipBtn.style.display='none';clearTimeout(failsafe);hint.hidden=true;
