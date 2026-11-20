@@ -269,7 +269,7 @@ function twoPart(U,D,cfg,onImpact){
  t=t.then(function(){return sleep(cfg.hold2)});
  // 4) Anlauf (weiter auseinander), 5) Aufprall
  t=t.then(function(){return Promise.all([anim(U,[{transform:tr(0,yU-A)},{transform:tr(0,yU-A-R)}],{duration:cfg.run,easing:EOUT}),anim(D,[{transform:tr(0,yD+A)},{transform:tr(0,yD+A+R)}],{duration:cfg.run,easing:EOUT})])});
- t=t.then(function(){return Promise.all([anim(U,[{transform:tr(0,yU-A-R)},{transform:tr(0,yU)}],{duration:cfg.crash,easing:ECRASH}),anim(D,[{transform:tr(0,yD+A+R)},{transform:tr(0,yD)}],{duration:cfg.crash,easing:ECRASH})])});
+ t=t.then(function(){if(cfg.onPre)setTimeout(cfg.onPre,Math.max(0,cfg.crash*TS-(cfg.lead||0)));return Promise.all([anim(U,[{transform:tr(0,yU-A-R)},{transform:tr(0,yU)}],{duration:cfg.crash,easing:ECRASH}),anim(D,[{transform:tr(0,yD+A+R)},{transform:tr(0,yD)}],{duration:cfg.crash,easing:ECRASH})])});
  return t.then(onImpact);
 }
 
@@ -286,9 +286,8 @@ ready.then(function(){return sleep(200)}).then(function(){
  var cx=(vw-W)/2,cy=(vh-H)/2;
  fly.style.transform=tr(cx,cy);fly.style.visibility='visible';
  var dxU=(W-wC)/2, dxD=(W-(wA+wI))/2-(wC-wA);
- var cfg={A:.62*fs,R:.22*fs,yU:0,yD:0,dxU:dxU,dxD:dxD,c1:0,c2:.22*fs,fade:800,holdU:1000,rise:700,fall:1100,hold2:250,run:420,crash:230};
+ var cfg={A:.62*fs,R:.22*fs,yU:0,yD:0,dxU:dxU,dxD:dxD,c1:0,c2:.22*fs,fade:800,holdU:1000,rise:700,fall:1100,hold2:250,run:420,crash:230,lead:75,onPre:function(){playPling().then(function(ok){if(!ok){setHint('🔊 Ton einschalten','🔊 Turn sound on');hint.hidden=false;setTimeout(function(){hint.hidden=true},7000)}else{hint.hidden=true}})}};
  return twoPart(A,B,cfg,function(){
-   playPling().then(function(ok){if(!ok){setHint('🔊 Ton einschalten','🔊 Turn sound on');hint.hidden=false;setTimeout(function(){hint.hidden=true},7000)}else{hint.hidden=true}});
    ass.animate([{opacity:1},{opacity:0}],{duration:140,fill:'forwards'});
    glow.animate([{opacity:0,transform:'translate(-50%,-50%) scale(.5)'},{opacity:1,transform:'translate(-50%,-50%) scale(1)',offset:.25},{opacity:0,transform:'translate(-50%,-50%) scale(1.2)'}],{duration:1100,easing:'ease-out'});
    return sleep(420);
@@ -338,7 +337,7 @@ ready.then(function(){return sleep(200)}).then(function(){
      var tg=claim.getBoundingClientRect();
      var s=Wf/W2, ty2=tg.top;
      html.classList.add('t-rest');
-     return anim(cfly,[{transform:tr(cx2,cy2)+' scale(1)'},{transform:tr(tg.left,ty2)+' scale('+s+')'}],{duration:1100,easing:'cubic-bezier(.6,0,.35,1)'});
+     var ov=Math.max(10,vw*.012);return anim(cfly,[{transform:tr(cx2,cy2)+' scale(1)',easing:'cubic-bezier(.55,0,.3,1)'},{transform:tr(tg.left-ov,ty2)+' scale('+(s*1.03)+')',offset:.68,easing:'ease-in-out'},{transform:tr(tg.left+ov*.35,ty2)+' scale('+(s*.995)+')',offset:.86,easing:'ease-in-out'},{transform:tr(tg.left,ty2)+' scale('+s+')'}],{duration:1250});
    }).then(function(){
      claim.classList.add('instant','drawn');html.classList.add('t-claim');
      document.removeEventListener('touchmove',noMove);skipBtn.style.display='none';clearTimeout(failsafe);hint.hidden=true;
