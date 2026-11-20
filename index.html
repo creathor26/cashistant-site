@@ -344,7 +344,7 @@ ready.then(function(){return sleep(200)}).then(function(){
      document.removeEventListener('touchmove',noMove);skipBtn.style.display='none';clearTimeout(failsafe);hint.hidden=true;
      try{sessionStorage.setItem('cs.intro','1')}catch(e){}
      finished=true;
-     requestAnimationFrame(function(){requestAnimationFrame(function(){html.classList.remove('lock');window.scrollTo(0,0);reveal();claim.animate([{opacity:0},{opacity:1}],{duration:200,easing:'linear'});var fo=cfly.animate([{opacity:1},{opacity:0}],{duration:200,easing:'linear',fill:'forwards'});fo.onfinish=function(){cfly.style.visibility='hidden'}})});
+     requestAnimationFrame(function(){requestAnimationFrame(function(){html.classList.remove('lock');window.scrollTo(0,0);reveal();var ca=claim.animate([{opacity:0},{opacity:1}],{duration:200,easing:'linear'});claim.style.position='relative';claim.style.zIndex='70';setTimeout(function(){cfly.style.visibility='hidden'},210)})});
    });
  });
 }).catch(function(e){if(e!==SKIP&&!(e&&e.name==='AbortError')){console.error(e)}finish()});
