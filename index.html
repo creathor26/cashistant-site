@@ -333,8 +333,10 @@ ready.then(function(){return sleep(200)}).then(function(){
    }).then(function(){
      // Claim rückt nach links; es ist dasselbe Element wie das fertige – kein Austausch am Ende
      html.classList.add('t-rest');
-     var ov=Math.max(8,vw*.007);
-     return anim(claim,[{transform:startT,easing:'cubic-bezier(.5,0,.4,1)'},{transform:tr(0,-ov)+' scale(1)',offset:.76,easing:'cubic-bezier(.4,0,.6,1)'},{transform:tr(0,0)+' scale(1)'}],{duration:1150});
+     // Flug entlang einer Linie von Mitte -> Endposition; schießt kurz zu weit (kleiner), federt zurück (kurz größer), landet exakt
+     var X0=cxL-nat.left,Y0=cyT-nat.top;
+     function at(u){return tr((X0*(1-u)).toFixed(3),(Y0*(1-u)).toFixed(3))+' scale('+(1+(K-1)*(1-u)).toFixed(4)+')'}
+     return anim(claim,[{transform:at(0),easing:'cubic-bezier(.5,0,.25,1)'},{transform:at(1.045),offset:.7,easing:'cubic-bezier(.35,0,.5,1)'},{transform:at(.988),offset:.86,easing:'cubic-bezier(.35,0,.5,1)'},{transform:at(1)}],{duration:1150});
    }).then(function(){
      document.removeEventListener('touchmove',noMove);skipBtn.style.display='none';clearTimeout(failsafe);hint.hidden=true;
      try{sessionStorage.setItem('cs.intro','1')}catch(e){}
