@@ -69,7 +69,7 @@ header.top nav+.tools{margin-left:8px}
 .claim.instant em::after{transition:none!important}
 html:not(.js) .claim em::after{clip-path:inset(0)}
 #cfly .l1,#cfly .l2{display:block}
-.js .claim{visibility:hidden}.js.t-claim .claim{visibility:visible}
+.js .claim{visibility:hidden}.js .claim.fly{visibility:visible;position:relative;z-index:70;will-change:transform}.js.t-claim .claim{visibility:visible}
 .lede{max-width:560px;margin:0 0 30px;font-size:clamp(18px,2vw,22px);line-height:1.5;color:var(--ink);font-weight:500}
 .btn{display:inline-block;background:linear-gradient(180deg,var(--blue2),var(--blue));color:#fff!important;font:700 18px var(--sys);padding:15px 32px;border-radius:999px;box-shadow:0 10px 28px rgba(30,86,184,.38),0 1px 0 rgba(255,255,255,.35) inset;text-decoration:none!important;transition:transform .2s,box-shadow .2s}
 .btn:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(30,86,184,.42),0 1px 0 rgba(255,255,255,.35) inset}

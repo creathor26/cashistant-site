@@ -69,7 +69,7 @@ header.top nav+.tools{margin-left:8px}
 .claim.instant em::after{transition:none!important}
 html:not(.js) .claim em::after{clip-path:inset(0)}
 #cfly .l1,#cfly .l2{display:block}
-.js .claim{visibility:hidden}.js.t-claim .claim{visibility:visible}
+.js .claim{visibility:hidden}.js .claim.fly{visibility:visible;position:relative;z-index:70;will-change:transform}.js.t-claim .claim{visibility:visible}
 .lede{max-width:560px;margin:0 0 30px;font-size:clamp(18px,2vw,22px);line-height:1.5;color:var(--ink);font-weight:500}
 .btn{display:inline-block;background:linear-gradient(180deg,var(--blue2),var(--blue));color:#fff!important;font:700 18px var(--sys);padding:15px 32px;border-radius:999px;box-shadow:0 10px 28px rgba(30,86,184,.38),0 1px 0 rgba(255,255,255,.35) inset;text-decoration:none!important;transition:transform .2s,box-shadow .2s}
 .btn:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(30,86,184,.42),0 1px 0 rgba(255,255,255,.35) inset}
@@ -225,11 +225,12 @@ function reveal(){var els=document.querySelectorAll('.sec .rv');
 
 var fly=$('fly'),cfly=$('cfly'),glow=$('glow'),hdr=$('hdr'),hWm=$('hWm'),hLogo=$('hLogo'),claim=$('claim'),skipBtn=$('skip');
 var skipped=false,finished=false;
+function cleanClaim(){claim.getAnimations({subtree:true}).forEach(function(a){try{a.cancel()}catch(x){}});claim.style.transform='';claim.style.transformOrigin='';claim.classList.remove('fly');claim.classList.add('instant','drawn');var q=claim.querySelectorAll('.l1,.l2');for(var i=0;i<q.length;i++){q[i].style.opacity='';q[i].style.transform=''}}
 function finish(){
  if(finished)return;finished=true;
  document.removeEventListener('touchmove',noMove);html.classList.remove('lock');window.scrollTo(0,0);html.classList.add('t-claim','t-rest');
  hdr.classList.add('on');hWm.classList.add('on');hLogo.classList.add('on');
- claim.classList.add('instant','drawn');
+ cleanClaim();
  [fly,cfly,glow].forEach(function(e){e.getAnimations({subtree:true}).forEach(function(a){try{a.cancel()}catch(x){}});e.style.display='none'});
  hint.hidden=true;skipBtn.style.display='none';
  try{sessionStorage.setItem('cs.intro','1')}catch(e){}
@@ -307,18 +308,15 @@ ready.then(function(){return sleep(200)}).then(function(){
    return sleep(640);
  }).then(function(){
    /* ---------- Teil 2: Claim ---------- */
-   cfly.innerHTML=claim.innerHTML;
-   var l1=cfly.querySelector('.l1'),l2=cfly.querySelector('.l2');
-   l1.classList.add('ln');l2.classList.add('ln');
+   var l1=claim.querySelector('.l1'),l2=claim.querySelector('.l2');
    var cs=getComputedStyle(claim),cfs=parseFloat(cs.fontSize),lh=parseFloat(cs.lineHeight)||cfs*1.08;
-   var r1=claim.querySelector('.l1').getBoundingClientRect(),r2=claim.querySelector('.l2').getBoundingClientRect();
-   var Wf=Math.max(r1.width,r2.width),K=Math.min(2.1,(vw*.86)/Wf);
-   var fs2=cfs*K,lh2=lh*K,W2=Wf*K,H2=lh2*2;
-   cfly.style.fontSize=fs2+'px';cfly.style.lineHeight=lh2+'px';cfly.style.width=W2+'px';cfly.style.height=H2+'px';
-   l1.style.top='0px';l2.style.top=lh2+'px';
-   var cx2=(vw-W2)/2,cy2=(vh-H2)/2;
-   cfly.style.transform=tr(cx2,cy2);cfly.style.visibility='visible';
-   var w1=r1.width*K,w2=r2.width*K,y0=lh2*.5,x0=(W2-w1)/2;
+   var nat=claim.getBoundingClientRect(),r1=l1.getBoundingClientRect(),r2=l2.getBoundingClientRect();
+   var w1=r1.width,Wf=Math.max(r1.width,r2.width),K=Math.min(2.1,(vw*.86)/Wf),H=lh*2;
+   var cxL=(vw-Wf*K)/2,cyT=(vh-H*K)/2;
+   var startT=tr(cxL-nat.left,cyT-nat.top)+' scale('+K+')';
+   l1.style.opacity='0';l2.style.opacity='0';
+   claim.style.transformOrigin='0 0';claim.style.transform=startT;claim.classList.add('fly');
+   var y0=lh*.5,x0=(Wf-w1)/2;
    var P=Promise.resolve();
    // 1) "Wer wiegt," blendet mittig ein und steht
    P=P.then(function(){return anim(l1,[{transform:tr(x0,y0),opacity:0},{transform:tr(x0,y0),opacity:1}],{duration:700,easing:'ease-out'})});
@@ -327,23 +325,22 @@ ready.then(function(){return sleep(200)}).then(function(){
    P=P.then(function(){return anim(l1,[{transform:tr(x0,y0),opacity:1},{transform:tr(0,0),opacity:1}],{duration:800,easing:EIO})});
    P=P.then(function(){return sleep(120)});
    // 3) "zählt schneller." puncht ins Bild, kleiner Landing-Bounce
-   P=P.then(function(){return anim(l2,[{transform:tr(0,-.2*lh2)+' scale(1.55)',opacity:0},{transform:tr(0,0)+' scale(.93)',opacity:1,offset:.5},{transform:tr(0,0)+' scale(1.045)',opacity:1,offset:.74},{transform:tr(0,0)+' scale(.99)',opacity:1,offset:.88},{transform:tr(0,0)+' scale(1)',opacity:1}],{duration:700,easing:'ease-out'})});
+   P=P.then(function(){return anim(l2,[{transform:tr(0,-.2*lh)+' scale(1.55)',opacity:0},{transform:tr(0,0)+' scale(.93)',opacity:1,offset:.5},{transform:tr(0,0)+' scale(1.045)',opacity:1,offset:.74},{transform:tr(0,0)+' scale(.99)',opacity:1,offset:.88},{transform:tr(0,0)+' scale(1)',opacity:1}],{duration:700,easing:'ease-out'})});
    return P.then(function(){
      glow.animate([{opacity:0,transform:'translate(-50%,-50%) scale(.5)'},{opacity:.5,transform:'translate(-50%,-50%) scale(.9)',offset:.25},{opacity:0,transform:'translate(-50%,-50%) scale(1.1)'}],{duration:900,easing:'ease-out'});
-     cfly.classList.add('drawn');
+     claim.classList.add('drawn');
      return sleep(1300);
    }).then(function(){
-     // Claim rückt nach links, Platz fürs Handy
-     var tg=claim.getBoundingClientRect();
-     var s=Wf/W2, ty2=tg.top;
+     // Claim rückt nach links; es ist dasselbe Element wie das fertige – kein Austausch am Ende
      html.classList.add('t-rest');
-     var ov=Math.max(9,vw*.009);return anim(cfly,[{transform:tr(cx2,cy2)+' scale(1)',easing:'cubic-bezier(.5,0,.45,1)'},{transform:tr(tg.left,ty2+ov)+' scale('+s+')',offset:.7,easing:'cubic-bezier(.3,.6,.4,1)'},{transform:tr(tg.left,ty2-ov*.4)+' scale('+s+')',offset:.86,easing:'ease-in-out'},{transform:tr(tg.left,ty2)+' scale('+s+')'}],{duration:1250});
+     var ov=Math.max(8,vw*.007);
+     return anim(claim,[{transform:startT,easing:'cubic-bezier(.5,0,.4,1)'},{transform:tr(0,-ov)+' scale(1)',offset:.76,easing:'cubic-bezier(.4,0,.6,1)'},{transform:tr(0,0)+' scale(1)'}],{duration:1150});
    }).then(function(){
-     claim.classList.add('instant','drawn');html.classList.add('t-claim');
      document.removeEventListener('touchmove',noMove);skipBtn.style.display='none';clearTimeout(failsafe);hint.hidden=true;
      try{sessionStorage.setItem('cs.intro','1')}catch(e){}
      finished=true;
-     requestAnimationFrame(function(){requestAnimationFrame(function(){html.classList.remove('lock');window.scrollTo(0,0);reveal();var ca=claim.animate([{opacity:0},{opacity:1}],{duration:200,easing:'linear'});claim.style.position='relative';claim.style.zIndex='70';setTimeout(function(){cfly.style.visibility='hidden'},210)})});
+     cleanClaim();html.classList.add('t-claim');
+     requestAnimationFrame(function(){html.classList.remove('lock');window.scrollTo(0,0);reveal()});
    });
  });
 }).catch(function(e){if(e!==SKIP&&!(e&&e.name==='AbortError')){console.error(e)}finish()});
