@@ -81,9 +81,9 @@ html:not(.js) .claim em::after{clip-path:inset(0)}
 .js.t-rest .phone{opacity:1;transform:none;transition:opacity 1s ease,transform 1.1s cubic-bezier(.2,.8,.2,1)}
 /* Handy */
 .phoneWrap{display:flex;justify-content:center}
-.phone{position:relative;width:min(310px,72vw,calc((100svh - 150px)*.4613));min-width:200px;aspect-ratio:393/852;border-radius:50px;padding:11px;background:linear-gradient(145deg,#2a3547,#0f1724);box-shadow:0 40px 70px -20px rgba(11,42,91,.45),0 18px 30px -12px rgba(11,42,91,.35),inset 0 0 0 2px #3a4660}
-.phone .scr{position:relative;width:100%;height:100%;border-radius:40px;overflow:hidden;background:#E9EFF8;container-type:inline-size}
-.phone img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+.phone{position:relative;width:min(310px,72vw,calc((100svh - 172px)*.4613 + 22px));min-width:200px;border-radius:50px;padding:11px;background:linear-gradient(145deg,#2a3547,#0f1724);box-shadow:0 40px 70px -20px rgba(11,42,91,.45),0 18px 30px -12px rgba(11,42,91,.35),inset 0 0 0 2px #3a4660}
+.phone .scr{position:relative;width:100%;aspect-ratio:786/1704;border-radius:40px;overflow:hidden;background:#E9EFF8;container-type:inline-size}
+.phone img{display:block;width:100%;height:auto}
 html[data-l=de] .phone .en,html[data-l=en] .phone .de{display:none}
 @media(max-width:900px){.hero .wrap{grid-template-columns:1fr;gap:34px}.phoneWrap{order:2}}
 
@@ -159,6 +159,7 @@ footer nav{display:flex;gap:22px;flex-wrap:wrap}footer a{color:var(--ink);opacit
 </main>
 <footer><div class="wrap"><div>© 2026 Thorsten Harms · Cashistant</div>
 <nav><a href="screens.html">Die App / The app</a><a href="impressum.html">Impressum / Legal notice</a><a href="datenschutz.html">Datenschutz / Privacy</a><a href="index.html#support">Support</a></nav></div></footer>
+<script>(function(){var a=null;document.querySelectorAll('a[href*="apps.apple.com"]').forEach(function(l){l.addEventListener('click',function(e){if(e.metaKey||e.ctrlKey||e.shiftKey||e.button)return;var m=false;try{m=localStorage.getItem('cs.snd')==='0'}catch(x){}if(m)return;e.preventDefault();var go=function(){location.href=l.href};try{a=a||new Audio('assets/pling.mp3');a.currentTime=0;var p=a.play();if(p&&p.catch)p.catch(go)}catch(x){return go()}setTimeout(go,1200)})})})();</script>
 <script>(function(){var b=document.getElementById('brand');if(!b)return;b.addEventListener('click',function(e){if(/\/(index\.html)?$/.test(location.pathname)){e.preventDefault();if(/[?&]intro\b/.test(location.search)){location.reload()}else{location.href=location.pathname+'?intro'}}})})();</script>
 <script>(function(){var lb=document.getElementById('lang');
 if(lb)lb.addEventListener('click',function(){var h=document.documentElement,n=h.getAttribute('data-l')==='de'?'en':'de';h.setAttribute('data-l',n);h.lang=n;try{localStorage.setItem('cs.lang',n)}catch(e){}if(window.__title)window.__title();});
