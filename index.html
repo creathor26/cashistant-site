@@ -145,7 +145,7 @@ footer nav{display:flex;gap:22px;flex-wrap:wrap}footer a{color:var(--ink);opacit
 </style>
 </head><body>
 <header class="top" id="hdr"><div class="wrap">
-<a class="brand" href="#" aria-label="Cashistant"><img id="hLogo" src="assets/logo.png" width="34" height="34" alt=""><span class="wm" id="hWm"><span class="c">Cash</span><span class="i">istant</span></span></a>
+<a class="brand" id="brand" href="index.html?intro" aria-label="Cashistant"><img id="hLogo" src="assets/logo.png" width="34" height="34" alt=""><span class="wm" id="hWm"><span class="c">Cash</span><span class="i">istant</span></span></a>
 <nav><a href="#tipp"><span lang="de">Wiege-Tipp</span><span lang="en">Weighing tip</span></a><a href="#funktionen"><span lang="de">Funktionen</span><span lang="en">Features</span></a><a href="screens.html"><span lang="de">Die App</span><span lang="en">The app</span></a><a href="#support">Support</a></nav>
 <div class="tools">
 <button class="pill" id="lang" aria-label="Sprache / Language"><span class="de">DE</span> <span>·</span> <span class="en">EN</span></button>
@@ -193,6 +193,7 @@ footer nav{display:flex;gap:22px;flex-wrap:wrap}footer a{color:var(--ink);opacit
 </main>
 <footer><div class="wrap"><div>© 2026 Thorsten Harms · Cashistant</div>
 <nav><a href="screens.html">Die App / The app</a><a href="impressum.html">Impressum / Legal notice</a><a href="datenschutz.html">Datenschutz / Privacy</a><a href="index.html#support">Support</a></nav></div></footer>
+<script>(function(){var b=document.getElementById('brand');if(!b)return;b.addEventListener('click',function(e){if(/\/(index\.html)?$/.test(location.pathname)){e.preventDefault();if(/[?&]intro\b/.test(location.search)){location.reload()}else{location.href=location.pathname+'?intro'}}})})();</script>
 
 <script>
 (function(){
