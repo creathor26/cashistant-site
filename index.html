@@ -2,13 +2,13 @@
 <html lang="de" data-l="de"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Cashistant – Wer wiegt, zählt schneller.</title>
-<meta name="description" content="Cashistant: die App für deinen Kassenschluss. Münzen wiegen statt zählen, Scheine und Rollen erfassen, Ergebnis als PDF sichern.">
+<meta name="description" content="Cashistant: die App für deinen Kassenschluss. Münzen wiegen statt zählen, per Wisch zwischen den Bereichen wechseln, eigene Farben, Ergebnis als PDF sichern.">
 <meta name="theme-color" content="#F4F7FB">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="canonical" href="https://cashistant.app/index.html">
 <meta property="og:title" content="Cashistant – Wer wiegt, zählt schneller.">
-<meta property="og:description" content="Cashistant: die App für deinen Kassenschluss. Münzen wiegen statt zählen, Scheine und Rollen erfassen, Ergebnis als PDF sichern.">
+<meta property="og:description" content="Cashistant: die App für deinen Kassenschluss. Münzen wiegen statt zählen, per Wisch zwischen den Bereichen wechseln, eigene Farben, Ergebnis als PDF sichern.">
 <meta property="og:image" content="https://cashistant.app/assets/logo.png">
 <meta property="og:url" content="https://cashistant.app/index.html">
 <script>try{var l=localStorage.getItem('cs.lang');if(!l)l=(navigator.language||'de').toLowerCase().indexOf('de')===0?'de':'en';var h=document.documentElement;h.setAttribute('data-l',l);h.lang=l;document.documentElement.classList.add('js')}catch(e){}
@@ -147,11 +147,25 @@ footer nav{display:flex;gap:22px;flex-wrap:wrap}footer a{color:var(--ink);opacit
 .legal h1{font-size:clamp(30px,5vw,40px);letter-spacing:-.025em;margin:0 0 8px}
 .legal h2{font-size:19px;margin:26px 0 6px;letter-spacing:-.01em}
 .legal p,.legal li{color:var(--ink);font-size:16px}.legal .mut{color:var(--mut);font-size:14px}
+
+.duo{display:grid;grid-template-columns:repeat(2,1fr);gap:34px;justify-items:center;align-items:start;padding-top:6px}
+.demo{margin:0;display:flex;flex-direction:column;align-items:center;gap:22px}
+.demo .phone{width:min(270px,72vw)}
+.demo figcaption{font:800 clamp(19px,2.2vw,23px)/1.2 var(--sys);letter-spacing:-.02em;text-align:center;color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:10px}
+.demo figcaption small{font:600 15px var(--sys);color:var(--mut);letter-spacing:0;min-height:1.2em}
+.trk{position:absolute;inset:0;display:flex;width:600%;transform:translateX(calc(var(--i,0)*-16.6667%));transition:transform .62s cubic-bezier(.22,1,.36,1)}
+.trk img{flex:0 0 16.6667%;width:16.6667%;height:100%;object-fit:cover}
+.fd{position:absolute;inset:0}.fd img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s ease}.fd img.on{opacity:1}
+html[data-l=de] .scr .trk.en,html[data-l=en] .scr .trk.de,html[data-l=de] .scr .fd.en,html[data-l=en] .scr .fd.de{display:none}
+.dots{display:flex;gap:10px}.dots i{width:22px;height:22px;border-radius:50%;box-shadow:var(--shs);border:2px solid transparent;transition:transform .3s,border-color .3s}.dots i.on{transform:scale(1.22);border-color:var(--blue)}
+.note{text-align:center;color:var(--mut);margin:38px 0 0;font-size:16px}
+@media(max-width:760px){.duo{grid-template-columns:1fr;gap:50px}}
+@media(prefers-reduced-motion:reduce){.trk{transition:none}.fd img{transition:none}}
 </style>
 </head><body>
 <header class="top" id="hdr"><div class="wrap">
 <a class="brand" id="brand" href="index.html?intro" aria-label="Cashistant"><img id="hLogo" src="assets/logo.png" width="34" height="34" alt=""><span class="wm" id="hWm"><span class="c">Cash</span><span class="i">istant</span></span><span class="wm pro" id="hPro" aria-label="Pro">Pro</span></a>
-<nav><a href="#tipp"><span lang="de">Wiege-Tipp</span><span lang="en">Weighing tip</span></a><a href="#funktionen"><span lang="de">Funktionen</span><span lang="en">Features</span></a><a href="screens.html"><span lang="de">Die App</span><span lang="en">The app</span></a><a href="#support">Support</a></nav>
+<nav><a href="#neu"><span lang="de">Neu in 1.2</span><span lang="en">New in 1.2</span></a><a href="#tipp"><span lang="de">Wiege-Tipp</span><span lang="en">Weighing tip</span></a><a href="#funktionen"><span lang="de">Funktionen</span><span lang="en">Features</span></a><a href="screens.html"><span lang="de">Die App</span><span lang="en">The app</span></a><a href="#support">Support</a></nav>
 <div class="tools">
 <button class="pill" id="lang" aria-label="Sprache / Language"><span class="de">DE</span> <span>·</span> <span class="en">EN</span></button>
 <button class="ic" id="snd" aria-label="Ton / Sound" title="Ton / Sound"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z"/><g class="w"><path d="M15.5 9a4 4 0 0 1 0 6"/><path d="M18 6.5a7.5 7.5 0 0 1 0 11"/></g><path class="x" d="M16 9.5l5 5M21 9.5l-5 5"/></svg></button>
@@ -175,6 +189,16 @@ footer nav{display:flex;gap:22px;flex-wrap:wrap}footer a{color:var(--ink);opacit
 <div class="phoneWrap"><div class="phone"><div class="scr"><img class="de" src="assets/s1f-de.jpg" alt="Cashistant Startscreen" width="786" height="1704" loading="lazy"><img class="en" src="assets/s1f-en.jpg" alt="Cashistant start screen" width="786" height="1704" loading="lazy"><div class="sb" aria-hidden="true"><span class="tm">9:41</span><span class="isl"></span><span class="ri"><svg viewBox="0 0 19 12"><rect x="0" y="8" width="3.2" height="4" rx=".8"/><rect x="5" y="5.5" width="3.2" height="6.5" rx=".8"/><rect x="10" y="3" width="3.2" height="9" rx=".8"/><rect x="15" y="0" width="3.2" height="12" rx=".8"/></svg><svg viewBox="0 0 17 12"><path d="M8.5 2.4c2.3 0 4.4.9 6 2.4l1-1.1A10.4 10.4 0 0 0 8.5.9C5.7.9 3.2 2 1.5 3.7l1 1.1a8.8 8.8 0 0 1 6-2.4zm0 3.7c1.3 0 2.5.5 3.4 1.3l1-1.1a6.9 6.9 0 0 0-4.4-1.7c-1.7 0-3.3.6-4.4 1.7l1 1.1c.9-.8 2.1-1.3 3.4-1.3zm0 3.6c.6 0 1.1.2 1.5.6L8.5 11.8 7 10.3c.4-.4.9-.6 1.5-.6z"/></svg><svg viewBox="0 0 28 12"><rect x=".5" y=".5" width="23.5" height="11" rx="3.4" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20.5" height="8" rx="2.2"/><path d="M25.5 4v4c.8-.3 1.5-1.1 1.5-2s-.7-1.7-1.5-2z" opacity=".45"/></svg></span></div></div></div></div>
 </div></section>
 
+
+<section class="sec" id="neu"><div class="wrap">
+<h2 class="rv"><span lang="de">Neu: Wisch dich durch die Kasse</span><span lang="en">New: swipe through your till</span></h2>
+<p class="intro rv"><span lang="de">Mit Cashistant Pro wechselst du per Wisch direkt von Rollengeld zu Münzen, Scheinen, Bündeln, Fremdwährung und Ergebnis – wie in einem Karussell. Und die App bekommt deine Farben.</span><span lang="en">With Cashistant Pro you swipe straight from rolls to coins, notes, bundles, foreign currency and the result – like a carousel. And the app gets your colours.</span></p>
+<div class="duo">
+<figure class="demo rv"><div class="phone"><div class="scr" id="swipeScr"><div class="trk de" data-n="6"><img src="assets/a1-de.jpg" alt="" width="786" height="1704" loading="lazy"><img src="assets/a2-de.jpg" alt="" width="786" height="1704" loading="lazy"><img src="assets/a3-de.jpg" alt="" width="786" height="1704" loading="lazy"><img src="assets/a4-de.jpg" alt="" width="786" height="1704" loading="lazy"><img src="assets/a5-de.jpg" alt="" width="786" height="1704" loading="lazy"><img src="assets/a6-de.jpg" alt="" width="786" height="1704" loading="lazy"></div><div class="trk en" data-n="6"><img src="assets/a1-en.jpg" alt="" width="786" height="1704" loading="lazy"><img src="assets/a2-en.jpg" alt="" width="786" height="1704" loading="lazy"><img src="assets/a3-en.jpg" alt="" width="786" height="1704" loading="lazy"><img src="assets/a4-en.jpg" alt="" width="786" height="1704" loading="lazy"><img src="assets/a5-en.jpg" alt="" width="786" height="1704" loading="lazy"><img src="assets/a6-en.jpg" alt="" width="786" height="1704" loading="lazy"></div><div class="sb" aria-hidden="true"><span class="tm">9:41</span><span class="isl"></span><span class="ri"><svg viewBox="0 0 19 12"><rect x="0" y="8" width="3.2" height="4" rx=".8"/><rect x="5" y="5.5" width="3.2" height="6.5" rx=".8"/><rect x="10" y="3" width="3.2" height="9" rx=".8"/><rect x="15" y="0" width="3.2" height="12" rx=".8"/></svg><svg viewBox="0 0 17 12"><path d="M8.5 2.4c2.3 0 4.4.9 6 2.4l1-1.1A10.4 10.4 0 0 0 8.5.9C5.7.9 3.2 2 1.5 3.7l1 1.1a8.8 8.8 0 0 1 6-2.4zm0 3.7c1.3 0 2.5.5 3.4 1.3l1-1.1a6.9 6.9 0 0 0-4.4-1.7c-1.7 0-3.3.6-4.4 1.7l1 1.1c.9-.8 2.1-1.3 3.4-1.3zm0 3.6c.6 0 1.1.2 1.5.6L8.5 11.8 7 10.3c.4-.4.9-.6 1.5-.6z"/></svg><svg viewBox="0 0 28 12"><rect x=".5" y=".5" width="23.5" height="11" rx="3.4" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20.5" height="8" rx="2.2"/><path d="M25.5 4v4c.8-.3 1.5-1.1 1.5-2s-.7-1.7-1.5-2z" opacity=".45"/></svg></span></div></div></div><figcaption><span lang="de">Wischen statt zurückgehen</span><span lang="en">Swipe instead of going back</span><small id="areaName"></small></figcaption></figure>
+<figure class="demo rv" style="--d:.15s"><div class="phone"><div class="scr" id="skinScr"><div class="fd de"><img src="assets/k-classic-de.jpg" alt="" width="786" height="1704" loading="lazy"><img src="assets/k-lilac-de.jpg" alt="" width="786" height="1704" loading="lazy"><img src="assets/k-sage-de.jpg" alt="" width="786" height="1704" loading="lazy"><img src="assets/k-rose-de.jpg" alt="" width="786" height="1704" loading="lazy"><img src="assets/k-teal-de.jpg" alt="" width="786" height="1704" loading="lazy"><img src="assets/k-yellow-de.jpg" alt="" width="786" height="1704" loading="lazy"></div><div class="fd en"><img src="assets/k-classic-en.jpg" alt="" width="786" height="1704" loading="lazy"><img src="assets/k-lilac-en.jpg" alt="" width="786" height="1704" loading="lazy"><img src="assets/k-sage-en.jpg" alt="" width="786" height="1704" loading="lazy"><img src="assets/k-rose-en.jpg" alt="" width="786" height="1704" loading="lazy"><img src="assets/k-teal-en.jpg" alt="" width="786" height="1704" loading="lazy"><img src="assets/k-yellow-en.jpg" alt="" width="786" height="1704" loading="lazy"></div><div class="sb" aria-hidden="true"><span class="tm">9:41</span><span class="isl"></span><span class="ri"><svg viewBox="0 0 19 12"><rect x="0" y="8" width="3.2" height="4" rx=".8"/><rect x="5" y="5.5" width="3.2" height="6.5" rx=".8"/><rect x="10" y="3" width="3.2" height="9" rx=".8"/><rect x="15" y="0" width="3.2" height="12" rx=".8"/></svg><svg viewBox="0 0 17 12"><path d="M8.5 2.4c2.3 0 4.4.9 6 2.4l1-1.1A10.4 10.4 0 0 0 8.5.9C5.7.9 3.2 2 1.5 3.7l1 1.1a8.8 8.8 0 0 1 6-2.4zm0 3.7c1.3 0 2.5.5 3.4 1.3l1-1.1a6.9 6.9 0 0 0-4.4-1.7c-1.7 0-3.3.6-4.4 1.7l1 1.1c.9-.8 2.1-1.3 3.4-1.3zm0 3.6c.6 0 1.1.2 1.5.6L8.5 11.8 7 10.3c.4-.4.9-.6 1.5-.6z"/></svg><svg viewBox="0 0 28 12"><rect x=".5" y=".5" width="23.5" height="11" rx="3.4" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20.5" height="8" rx="2.2"/><path d="M25.5 4v4c.8-.3 1.5-1.1 1.5-2s-.7-1.7-1.5-2z" opacity=".45"/></svg></span></div></div></div><figcaption><span lang="de">Dein Look. Deine Farben.</span><span lang="en">Your look. Your colours.</span><span class="dots" id="skinDots"><i style="background:#C9D8EE"></i><i style="background:#D9C6EA"></i><i style="background:#C5D8CE"></i><i style="background:#F0C4CC"></i><i style="background:#BFE3E0"></i><i style="background:#F3E6A8"></i></span></figcaption></figure>
+</div>
+<p class="note rv"><span lang="de">Wischen und Farben gehören zu Cashistant Pro – einmalig, ohne Abo.</span><span lang="en">Swiping and colours are part of Cashistant Pro – one-time purchase, no subscription.</span></p>
+</div></section>
 <section class="sec" id="tipp"><div class="wrap">
 <h2 class="rv"><span lang="de">Kleiner Tipp: Pappbecher und Kassenwaage</span><span lang="en">Little tip: paper cup and till scale</span></h2>
 <p class="intro rv"><span lang="de">Benutze deine Kassenwaage und einen Pappbecher zum Wiegen deiner Münzen. Den Pappbecher einmal tarieren – und los geht’s.</span><span lang="en">Use your till scale and a paper cup to weigh your coins. Tare the cup once – and off you go.</span></p>
@@ -355,6 +379,23 @@ ready.then(function(){return sleep(200)}).then(function(){
 /* Handschrift-Zeile schreibt sich beim Einblenden */
 var hn=document.getElementById('handnote');
 if(hn&&'IntersectionObserver' in window){new IntersectionObserver(function(en,io){en.forEach(function(x){if(x.isIntersecting){setTimeout(function(){hn.classList.add('in')},350);io.disconnect()}})},{threshold:.6}).observe(hn)}else if(hn){hn.classList.add('in')}
+})();
+</script>
+
+<script>
+(function(){
+var sw=document.getElementById('swipeScr'),sk=document.getElementById('skinScr'),nm=document.getElementById('areaName'),dd=document.querySelectorAll('#skinDots i');
+if(!sw||!sk)return;
+var NAMES={de:['Rollengeld','Münzen','Scheine','Bündel','Währung DKK','Ergebnis'],en:['Rolled coins','Coins','Notes','Bundles','Currency DKK','Result']};
+var i=0,j=0,timer=null,reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+function lang(){return document.documentElement.getAttribute('data-l')==='en'?'en':'de'}
+function show(){sw.querySelectorAll('.trk').forEach(function(t){t.style.setProperty('--i',i)});if(nm)nm.textContent=NAMES[lang()][i];
+ sk.querySelectorAll('.fd').forEach(function(f){f.querySelectorAll('img').forEach(function(m,k){m.classList.toggle('on',k===j)})});dd.forEach(function(d,k){d.classList.toggle('on',k===j)})}
+function tick(){i=(i+1)%6;j=(j+1)%6;show()}
+function start(){if(timer||reduce)return;timer=setInterval(tick,2400)}function stop(){clearInterval(timer);timer=null}
+show();
+var lb=document.getElementById('lang');if(lb)lb.addEventListener('click',function(){setTimeout(show,30)});
+if('IntersectionObserver' in window){new IntersectionObserver(function(es){es.forEach(function(e){e.isIntersecting?start():stop()})},{threshold:.25}).observe(document.getElementById('neu'))}else start();
 })();
 </script>
 </body></html>
